@@ -15,6 +15,7 @@
       height: 100vh;
       margin: 0;
       position: relative;
+      font-family: 'Arial', sans-serif;
     }
 
     .container {
@@ -24,28 +25,29 @@
       width: 100%;
     }
 
-    /* Letter style */
+    /* Letter box with more attractive style */
     .letter {
-      background-color: white;
-      border: 3px solid #d5005f;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(145deg, #ff4081, #d5005f);
+      border: 3px solid #ff4081;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
       position: relative;
-      font-family: 'Arial', sans-serif;
-      color: #d5005f;
+      color: white;
+      font-size: 1.5rem;
     }
 
     .letter::before {
       content: "";
       position: absolute;
-      top: -15px;
+      top: -20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 50px;
-      height: 50px;
-      background: #d5005f;
-      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      width: 60px;
+      height: 60px;
+      background: #ff4081;
+      border-radius: 50%;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
@@ -58,26 +60,35 @@
       font-size: 20px;
       margin: 20px;
       border-radius: 25px;
+      transition: 0.3s ease;
     }
 
     .yes-btn {
       background-color: #ff4081;
       color: white;
       border: none;
-      box-shadow: 0px 5px 10px rgba(255, 64, 129, 0.5);
+      box-shadow: 0px 5px 15px rgba(255, 64, 129, 0.5);
+      cursor: pointer;
+    }
+
+    .yes-btn:hover {
+      background-color: #d5005f;
+      transform: scale(1.05);
     }
 
     .no-btn {
       background-color: #746d70;
       color: white;
       position: absolute;
-      transition: all 0.5s ease;
       border: none;
       box-shadow: 0px 5px 10px rgba(213, 0, 95, 0.5);
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
     }
 
     .no-btn:hover {
-      background-color: #1d3efa;
+      background-color: #ff4081;
+      transform: scale(1.1);
     }
 
     /* Heart shape with CSS */
@@ -147,36 +158,27 @@
     // Initialize EmailJS with your actual User ID
     emailjs.init("sLqpqff9Ahm835tEt"); // Replace with your actual User ID from EmailJS
 
-    // Function to move the "No" button
+    // Function to move the "No" button instantly
     function moveButton() {
-  const noButton = document.getElementById("no-btn");
-  const buttonWidth = noButton.offsetWidth;
-  const buttonHeight = noButton.offsetHeight;
+      const noButton = document.getElementById("no-btn");
+      const buttonWidth = noButton.offsetWidth;
+      const buttonHeight = noButton.offsetHeight;
 
-  // Get the current position of the button
-  const currentX = noButton.offsetLeft;
-  const currentY = noButton.offsetTop;
+      // Calculate random movement within 100px
+      const randomX = Math.floor(Math.random() * 201) - 100; // Moves within ±100px of the current position
+      const randomY = Math.floor(Math.random() * 201) - 100; // Moves within ±100px of the current position
 
-  // Calculate random movement within 100px
-  const randomX = Math.floor(Math.random() * 201) - 100; // Moves within ±100px of the current position
-  const randomY = Math.floor(Math.random() * 201) - 100; // Moves within ±100px of the current position
+      // Ensure the button stays within the 100px movement limit
+      const newX = Math.max(0, Math.min(window.innerWidth - buttonWidth, noButton.offsetLeft + randomX));
+      const newY = Math.max(0, Math.min(window.innerHeight - buttonHeight, noButton.offsetTop + randomY));
 
-  // Ensure the button stays within the 100px movement limit
-  const newX = Math.max(0, Math.min(window.innerWidth - buttonWidth, currentX + randomX));
-  const newY = Math.max(0, Math.min(window.innerHeight - buttonHeight, currentY + randomY));
+      // Apply the new position instantly (no transition)
+      noButton.style.left = newX + "px";
+      noButton.style.top = newY + "px";
+    }
 
-  // Apply the new position
-  noButton.style.left = newX + "px";
-  noButton.style.top = newY + "px";
-}
-
-
-
-
-    // Move the button on hover
+    // Move the button on hover or click
     document.getElementById("no-btn").addEventListener("mouseover", moveButton);
-
-    // Move the button on click
     document.getElementById("no-btn").addEventListener("click", moveButton);
 
     // Function to send the email
@@ -190,7 +192,7 @@
       emailjs.send("service_halh58r", "template_8vj2q3u", templateParams)
         .then(function(response) {
           console.log('Success!', response);
-          alert("Thank you!!I knew you would say yes! 💌");
+          alert("Thank you!! I knew you would say yes! 💌");
         }, function(error) {
           console.log('Failed...', error);
         });
