@@ -3,102 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MrBlue1x</title>
+  <title>Cheesy Pick-Up Lines</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
-      background-color: #ffe6f2;
+      background-color: #f2eee8;
+      font-family: 'Roboto', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      position: relative;
-      font-family: 'Arial', sans-serif;
+      overflow: hidden;
     }
 
     .container {
       text-align: center;
-      position: relative;
-      max-width: 600px;
+      max-width: 800px;
       width: 100%;
-    }
-
-    /* Letter box with more attractive style */
-    .letter {
-      background: linear-gradient(145deg, #ff4081, #d5005f);
-      border: 3px solid #ff4081;
-      border-radius: 20px;
       padding: 40px;
-      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-      position: relative;
-      color: white;
-      font-size: 1.5rem;
-    }
-
-    .letter::before {
-      content: "";
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 60px;
-      background: #ff4081;
-      border-radius: 50%;
-      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(145deg, #9e97a5, #c1d2d2);
+      animation: fadeIn 2s ease-out;
+      z-index: 100;
     }
 
     h1 {
-      font-size: 2.5rem;
+      color: #7b93a5;
+      font-size: 3rem;
+      font-family: 'Dancing Script', cursive;
       margin-bottom: 20px;
+      text-transform: uppercase;
     }
 
     .btn {
       padding: 15px 30px;
-      font-size: 20px;
+      font-size: 1.2rem;
       margin: 20px;
       border-radius: 25px;
+      cursor: pointer;
       transition: 0.3s ease;
+      border: none;
+      animation: bounce 1.5s ease-in-out infinite;
     }
 
     .yes-btn {
-      background-color: #ff4081;
+      background-color: #8d6a7d;
       color: white;
-      border: none;
-      box-shadow: 0px 5px 15px rgba(255, 64, 129, 0.5);
-      cursor: pointer;
+      box-shadow: 0px 5px 15px rgba(141, 106, 125, 0.5);
     }
 
     .yes-btn:hover {
-      background-color: #d5005f;
-      transform: scale(1.05);
+      background-color: #7b93a5;
+      transform: scale(1.1);
     }
 
     .no-btn {
-      background-color: #746d70;
+      background-color: #c1d2d2;
       color: white;
-      position: absolute;
-      border: none;
-      box-shadow: 0px 5px 10px rgba(213, 0, 95, 0.5);
+      position: relative;
+      box-shadow: 0px 5px 15px rgba(193, 210, 210, 0.5);
       cursor: pointer;
       transition: background-color 0.3s, transform 0.3s;
     }
 
     .no-btn:hover {
-      background-color: #ff4081;
+      background-color: #8d6a7d;
       transform: scale(1.1);
     }
 
-    /* Heart shape with CSS */
     .heart {
       position: absolute;
       width: 40px;
       height: 40px;
       background-color: red;
       transform: rotate(45deg);
-      opacity: 0.9;
+      opacity: 0.8;
       animation: floatHeart 3s linear infinite;
     }
 
@@ -123,116 +106,158 @@
     }
 
     @keyframes floatHeart {
-      0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 0.9;
-      }
-      50% {
-        transform: translateY(-100px) rotate(45deg);
-        opacity: 0.5;
-      }
-      100% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 0.9;
-      }
+      0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
+      50% { transform: translateY(-100px) rotate(45deg); opacity: 0.5; }
+      100% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
     }
 
-    audio {
-      display: none;
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popupFadeIn {
+      from { opacity: 0; transform: translate(-50%, -45%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    .popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #9e97a5;
+      color: #f2eee8;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      width: 400px;
+      animation: popupFadeIn 1s ease;
+      text-align: center;
+    }
+
+    .popup img {
+      width: 100px;
+      height: 100px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+      }
+      .popup {
+        width: 300px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Letter box with the question -->
-    <div class="letter">
-        <h1>Would you be my Valentine?</h1>
-      <button class="btn yes-btn" id="yes-btn">Yes</button>
-      <button id="no-btn" class="btn no-btn">No</button>
-    </div>
+    <div id="pickUpLineContainer"></div>
+    <button class="btn yes-btn" id="yes-btn">Yes</button>
+    <button class="btn no-btn" id="no-btn">No</button>
   </div>
 
-  <audio id="song" src="https://ia902903.us.archive.org/7/items/athousandyearschristinaperri_202003/A%20Thousand%20Years%20-%20Christina%20Perri.mp3" preload="auto"></audio>
-
   <script>
-    // Initialize EmailJS with your actual User ID
-    emailjs.init("sLqpqff9Ahm835tEt"); // Replace with your actual User ID from EmailJS
-
-    // Function to move the "No" button instantly
-    function moveButton() {
-      const noButton = document.getElementById("no-btn");
-      const buttonWidth = noButton.offsetWidth;
-      const buttonHeight = noButton.offsetHeight;
-
-      // Calculate random movement within 100px
-      const randomX = Math.floor(Math.random() * 201) - 100; // Moves within ±100px of the current position
-      const randomY = Math.floor(Math.random() * 201) - 100; // Moves within ±100px of the current position
-
-      // Ensure the button stays within the 100px movement limit
-      const newX = Math.max(0, Math.min(window.innerWidth - buttonWidth, noButton.offsetLeft + randomX));
-      const newY = Math.max(0, Math.min(window.innerHeight - buttonHeight, noButton.offsetTop + randomY));
-
-      // Apply the new position instantly (no transition)
-      noButton.style.left = newX + "px";
-      noButton.style.top = newY + "px";
-    }
-
-    // Move the button on hover or click
-    document.getElementById("no-btn").addEventListener("mouseover", moveButton);
-    document.getElementById("no-btn").addEventListener("click", moveButton);
-
-    // Function to send the email
-    function sendEmail() {
-      const templateParams = {
-        from_name: "Your Name",  // Customize with the sender's name
-        to_name: "Recipient Name", // Customize with the recipient's name
-        message: "I clicked Yes on your Valentine request!", // Customize with your message
-      };
-
-      emailjs.send("service_halh58r", "template_8vj2q3u", templateParams)
-        .then(function(response) {
-          console.log('Success!', response);
-          alert("Thank you!! I knew you would say yes! 💌");
-        }, function(error) {
-          console.log('Failed...', error);
-        });
-    }
-
-    // Play song automatically when page loads (attempts autoplay)
-    window.onload = function() {
-      let audio = document.getElementById('song');
-      try {
-        audio.play();
-      } catch (error) {
-        console.log("Autoplay blocked, will play after user interaction");
+    const pickUpLines = [
+      {
+        "line": "Are you a magician? Because whenever I look at you, everyone else disappears.",
+        "yes": "Wow, looks like you made my heart disappear too! 😍✨",
+        "no": "Maybe I need a better magic trick next time! 🎩"
+      },
+      {
+        "line": "Do you have a map? Because I keep getting lost in your eyes.",
+        "yes": "Well, looks like I just found the perfect destination! 🌍💘",
+        "no": "I guess I'll need a GPS to find my way to your heart. 💌"
+      },
+      {
+        "line": "Is your name Google? Because you have everything I’ve been searching for.",
+        "yes": "I must have just hit the jackpot! 💖💻",
+        "no": "Guess I’ll need to keep searching... 🔍"
+      },
+      {
+        "line": "Are you French? Because Eiffel for you.",
+        "yes": "Well, you've just made my heart do a little dance! 🇫🇷💃",
+        "no": "Guess I’ll need to brush up on my French! 😅"
+      },
+      {
+        "line": "Is your dad a boxer? Because you're a knockout.",
+        "yes": "Well, you've knocked me off my feet! 🥊💥",
+        "no": "Guess I'll have to train harder for this match! 🏅"
+      },
+      {
+        "line": "Are you Wi-Fi? Because I'm feeling a connection.",
+        "yes": "Looks like we’ve got the perfect signal! 📶💘",
+        "no": "I guess I need to work on my connection skills. 🌐"
+      },
+      {
+        "line": "Do you believe in love at first sight, or should I walk by again?",
+        "yes": "Well, I think I’m walking straight into your heart. 💓",
+        "no": "Guess I’ll need a second chance! 🤞"
+      },
+      {
+        "line": "Are you an angel? Because heaven is missing one.",
+        "yes": "I must be blessed to have met you! 😇✨",
+        "no": "I guess I’ll just have to keep searching for that angel! 🙏"
       }
+    ];
+
+    let currentPickUpIndex = 0;
+
+    function loadPickUpLine() {
+      const pickUpLine = pickUpLines[currentPickUpIndex];
+      const pickUpLineContainer = document.getElementById("pickUpLineContainer");
+      pickUpLineContainer.innerHTML = `<h3>${pickUpLine.line}</h3>`;
     }
 
-    // Trigger email on Yes button click
-    document.getElementById("yes-btn").addEventListener("click", function() {
-      // Floating hearts (create multiple hearts)
+    function showResponse(responseType) {
+      const pickUpLine = pickUpLines[currentPickUpIndex];
+      const response = responseType === 'yes' ? pickUpLine.yes : pickUpLine.no;
+      const popup = document.createElement('div');
+      popup.className = 'popup';
+      popup.innerHTML = `
+          <p>${response}</p>
+          <img src="https://media.giphy.com/media/LpRAmCd8cYby7uiHW4/giphy.gif?cid=790b7611crsceoh4nnw7syvtilhyiocxhxy6pwn1it00arhz&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="heart emoji" style="width: 100px; height: auto;">
+      `;
+      document.body.appendChild(popup);
+      setTimeout(() => { popup.style.display = 'block'; }, 100);
+      setTimeout(() => {
+          popup.style.display = 'none';
+          document.body.removeChild(popup);
+          currentPickUpIndex = (currentPickUpIndex + 1) % pickUpLines.length;
+          loadPickUpLine();
+      }, 3000);
+    }
+
+    document.getElementById("yes-btn").addEventListener("click", () => { showResponse('yes'); addHearts(); });
+    document.getElementById("no-btn").addEventListener("click", () => { showResponse('no'); });
+
+    function addHearts() {
       for (let i = 0; i < 50; i++) {
         let heart = document.createElement('div');
         heart.classList.add('heart');
-        
-        // Randomize starting position for each heart
         heart.style.left = `${Math.random() * window.innerWidth}px`;
         heart.style.top = `${Math.random() * window.innerHeight}px`;
         document.body.appendChild(heart);
-
-        // Remove heart after animation ends
-        setTimeout(() => {
-          heart.remove();
-        }, 3000);
+        setTimeout(() => { heart.remove(); }, 3000);
       }
+    }
 
-      // Play song (if autoplay was blocked)
-      let audio = document.getElementById('song');
-      audio.play();
-
-      // Send email
-      sendEmail();
-    });
+    loadPickUpLine();
   </script>
 </body>
 </html>
